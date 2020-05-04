@@ -44,7 +44,7 @@ export default class SingleImageInfo extends React.Component {
           <div>SCHOOL: {this.props.school}</div>
           <div>NOW AT: {this.props.location}</div>
           <div>{this.props.description}</div>
-          <div><button onClick={this.toggleLike}>{this.props.likeIcon}</button></div>
+				<div><button onClick={this.toggleLike}>{this.state.likeIcon}</button></div>
 
         </div>
 
