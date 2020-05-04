@@ -17,7 +17,6 @@ export default class DisplayPopular extends React.Component {
     // The state maintained by this React Component.
     // This component maintains a list of randomly picked paintings
     this.state = {
-
         imageDivs:[]
     }
 
@@ -26,7 +25,7 @@ export default class DisplayPopular extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:8081/image/"+this.props.match.params.genre,
+    fetch("http://localhost:8081/populars/"+this.props.match.params.genre,
     {
       method: 'GET' // The type of HTTP request.
     }).then(res => {
