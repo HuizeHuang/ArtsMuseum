@@ -138,6 +138,56 @@ function getRecsForImg(req, res) {
   });
 };
 
+
+
+/* ---- Get popular images in current genre ---- */
+function getPopularsByGenre(req, res) {
+  var genre = req.params.id;
+  var query = `
+  SELECT
+		TITLE,
+    SIZES,
+    FULL_NAME,
+    CREATED_TIME,
+    TECHNIQUE,
+    TYPE,
+    latest_artwork.${genre},
+    LOCATION,
+    DESCRIPTION,
+    SCHOOL,
+    IMAGE_SOURCE
+		FROM
+			(SELECT ${genre},
+			MAX(timeline_start) AS latest_timeline
+			FROM ARTWORK
+			GROUP BY ${genre}
+            ) latest_artwork
+            JOIN
+			(SELECT ${genre},
+			COUNT(*) AS cnt
+			FROM ARTWORK
+            GROUP BY ${genre}
+            ) school_amount ON school_amount.${genre} = latest_artwork.${genre}
+		JOIN ARTWORK
+		ON latest_artwork.latest_timeline = ARTWORK.timeline_start
+		AND latest_artwork.${genre} = ARTWORK.${genre}
+		JOIN AUTHOR
+		ON AUTHOR.id = ARTWORK.author_id
+		GROUP BY latest_artwork.${genre}
+    ORDER BY cnt DESC
+		LIMIT 5;
+
+  `;
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      console.log(rows);
+      res.json(rows);
+    }
+  });
+};
+
+
 // The exported functions, which can be accessed in index.js.
 module.exports = {
   get10RandomPaintings: get10RandomPaintings,
@@ -145,7 +195,8 @@ module.exports = {
   getImages:getImages,
   getImgInfo: getImgInfo,
   getArtists:getArtists,
-  getRecsForImg: getRecsForImg
+  getRecsForImg: getRecsForImg,
+  getPopularsByGenre:getPopularsByGenre
   // getDecades: getDecades,
   // bestGenresPerDecade: bestGenresPerDecade,
   // getRandomMovies:getRandomMovies

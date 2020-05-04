@@ -1,7 +1,7 @@
 /*
- * @Description: 
+ * @Description:
  * @Version: 1.0
- * @Autor: 
+ * @Autor:
  * @Date: 2020-05-02 19:02:49
  * @LastEditors: Tianshi
  * @LastEditTime: 2020-05-04 15:42:50
@@ -68,6 +68,9 @@ app.get('/image/:id', routes.getImgInfo);
 app.get('/recs/:id', routes.getRecsForImg);
 
 
+
+/* ---- Get popular images in current genre ---- */
+app.get('/populars/:id', routes.getPopularsByGenre);
 
 
 
