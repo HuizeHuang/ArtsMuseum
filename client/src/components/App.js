@@ -4,7 +4,7 @@
  * @Autor: Tianshi
  * @Date: 2020-05-04 08:42:41
  * @LastEditors: Tianshi
- * @LastEditTime: 2020-05-05 00:40:33
+ * @LastEditTime: 2020-05-05 03:03:34
  */
 import React from 'react';
 import {
@@ -19,7 +19,7 @@ import Home from './Home'
 import SingleImage from './SingleImage';
 import WelcomePage from './WelcomePage';
 import DisplayTimeline from './DisplayTimeline';
-
+import axios from 'axios'
 
 /*** Font Awesome Icon **/
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -38,11 +38,13 @@ export default class App extends React.Component {
 
 		this.state = {
 		  loggedInStatus: "NOT_LOGGED_IN",
-		  user: ''
+		  user: '',
+		  historyImageIDs: []
 		};
 
 		this.handleLogin = this.handleLogin.bind(this);
 		this.handleLogout = this.handleLogout.bind(this);
+		this.handleHistory = this.handleHistory.bind(this);
 	}
 
 	handleLogin(data) {
@@ -56,10 +58,32 @@ export default class App extends React.Component {
 
 	handleLogout() {
 
+
+
+        axios.post('http://localhost:8081/users/history/', {historyImageIDs : this.state.historyImageIDs})
+        .then(response => {
+            console.log(response);
+			this.setState({
+				historyImageIDs: []
+			});
+        }).catch(error => {
+
+		});
 		this.setState({
-		  loggedInStatus: "NOT_LOGGED_IN"
+			loggedInStatus: "NOT_LOGGED_IN",
+			user: '',
+			
 		});
 
+
+	}
+
+	handleHistory(imageID) {
+		
+		this.setState(prevState => ({
+			historyImageIDs: [...prevState.historyImageIDs, imageID]
+		}))
+		// console.log(this.state.historyImageIDs)
 	}
 
 	render() {
@@ -88,6 +112,7 @@ export default class App extends React.Component {
 							{...props}
 							handleLogin={this.handleLogin}
 							handleLogout={this.handleLogout}
+							handleHistory={this.handleHistory}
 							user={this.state.user}
 							loggedInStatus={this.state.loggedInStatus}
 							/>
@@ -100,6 +125,8 @@ export default class App extends React.Component {
 						render={props => (
 							<Display
 							{...props}
+							handleLogout={this.handleLogout}
+							handleHistory={this.handleHistory}
 							user={this.state.user}
 							loggedInStatus={this.state.loggedInStatus}
 							/>
@@ -112,6 +139,8 @@ export default class App extends React.Component {
 						render={props => (
 							<SingleImage
 							{...props}
+							handleLogout={this.handleLogout}
+							handleHistory={this.handleHistory}
 							user={this.state.user}
 							loggedInStatus={this.state.loggedInStatus}
 							/>
@@ -124,6 +153,8 @@ export default class App extends React.Component {
 						render={props => (
 							<Artist
 							{...props}
+							handleLogout={this.handleLogout}
+							handleHistory={this.handleHistory}
 							user={this.state.user}
 							loggedInStatus={this.state.loggedInStatus}
 							/>
@@ -135,6 +166,8 @@ export default class App extends React.Component {
 							render={(props) => (
 								<DisplayPopular
 									{...props}
+									handleLogout={this.handleLogout}
+									handleHistory={this.handleHistory}
 									user={this.state.user}
 									loggedInStatus={this.state.loggedInStatus}
 								/>
@@ -145,6 +178,8 @@ export default class App extends React.Component {
 							render={(props) => (
 								<DisplayTimeline
 									{...props}
+									handleLogout={this.handleLogout}
+									handleHistory={this.handleHistory}
 									user={this.state.user}
 									loggedInStatus={this.state.loggedInStatus}
 								/>

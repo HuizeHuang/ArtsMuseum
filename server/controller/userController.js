@@ -4,7 +4,7 @@
  * @Autor: Tianshi
  * @Date: 2020-05-03 04:13:29
  * @LastEditors: Tianshi
- * @LastEditTime: 2020-05-04 20:06:41
+ * @LastEditTime: 2020-05-05 03:05:29
  */
 
 var config = require('../db-config.js');
@@ -19,6 +19,7 @@ exports.signup = signup;
 exports.collect = collect;
 exports.getStarStatus = getStarStatus;
 exports.unlike = unlike;
+exports.history = history;
 /**
  * 
  * Login
@@ -124,10 +125,10 @@ function collect(req, res, next) {
     console.log(userID)
     console.log(imageID)
     connection.query(sql, [values], function (err, result) {
-        if (err){
+        if (err) {
             res.send(commonJS.createJsonString(false, null, "Insert failure"))
             throw err;
-            
+
         } else {
             res.send(commonJS.createJsonString(true, result, "Insert success"))
         }
@@ -155,13 +156,13 @@ function getStarStatus(req, res, next) {
             console.log(err);
             throw err;
         }
-        else { 
+        else {
             if (rows[0] == null) {
                 res.send(commonJS.createJsonString(false, null, "Haven't starred yet"))
             } else {
                 res.send(commonJS.createJsonString(true, rows, "Already starred"))
             }
-            
+
 
         }
     });
@@ -188,12 +189,64 @@ function unlike(req, res, next) {
             console.log(err);
             throw err;
         }
-        else { 
-            
+        else {
+
             res.send(commonJS.createJsonString(true, null, "Deleted star"))
-            
-            
+
+
 
         }
     });
+}
+
+/**
+ * 
+ * history
+ * 
+ * @param {_} req 
+ * @param {_} res 
+ * @param {_} next 
+ * 
+ * @return 
+ */
+function history(req, res, next) {
+    var artwork_ids = req.body.historyImageIDs;
+    // console.log(userIDs)
+
+
+    artwork_ids.forEach(function (value) {
+     
+        var query = `SELECT * FROM history WHERE artwork_id = '${value}';`;
+        connection.query(query, function (err, rows, fields) {
+            if (err) {
+                console.log(err);
+                throw err;
+            }
+            if (rows[0] != undefined) {
+   
+                var i = new Number(rows[0].count)
+                var count =  i + 1
+    
+                var sql = `UPDATE history SET count ='${count}' WHERE artwork_id = '${value}'`;
+                connection.query(sql, function (err, rows, fields) {
+                    if (err) {
+                        console.log(err);
+                        throw err;
+                    }
+                });
+
+            } else {
+                var sql = "INSERT INTO history (artwork_id, count) VALUES ?";
+                var values = [
+                    [value, 1],
+                ];
+                console.log(rows)
+                connection.query(sql, [values], function (err, result) {
+                    if (err) throw err;
+                    console.log(result)
+                });
+            }
+        });     
+    });
+
 }
