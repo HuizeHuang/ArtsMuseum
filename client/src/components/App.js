@@ -122,9 +122,13 @@ export default class App extends React.Component {
 						/>
 
 						<Route
-							path="/populars/:genre"
+							path={"/populars/:genre"}
 							render={(props) => (
-								<DisplayPopular {...props}/>
+								<DisplayPopular
+									{...props}
+									user={this.state.user}
+									loggedInStatus={this.state.loggedInStatus}
+								/>
 							)}
 						/>
 					</Switch>

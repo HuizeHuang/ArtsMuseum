@@ -1,8 +1,6 @@
 import React from "react";
-import ScrollArea from 'react-scrollbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../style/SingleImage.css";
-import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import SideNavbar from './SideNavbar';
@@ -17,16 +15,26 @@ export default class DisplayPopular extends React.Component {
     // The state maintained by this React Component.
     // This component maintains a list of randomly picked paintings
     this.state = {
-
         imageDivs:[]
     }
 
     // Any instance method should be binded here
-
+    this.fetchImages = this.fetchImages.bind(this);
   }
 
   componentDidMount() {
-    fetch("http://localhost:8081/image/"+this.props.match.params.genre,
+    this.fetchImages();
+  }
+
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.genre !== prevProps.match.params.genre) {
+      this.fetchImages();
+    }
+  }
+
+  fetchImages() {
+    fetch("http://localhost:8081/populars/"+this.props.match.params.genre,
     {
       method: 'GET' // The type of HTTP request.
     }).then(res => {
@@ -39,7 +47,7 @@ export default class DisplayPopular extends React.Component {
       if (!imageInfoArr) return;
 
       let imageDivs = imageInfoArr.map((imgInfo, i) =>
-      <SingleImageInfo source={imgInfo.IMAGE_SOURCE} title={imgInfo.TITLE} size={imgInfo.SIZES}
+      <SingleImageInfo source={imgInfo.IMAGE_SOURCE} title={imgInfo.TITLE} size={imgInfo.SIZES} start={imgInfo.TIMELINE_START}
         artist={imgInfo.AUTHOR} date={imgInfo.CREATED_TIME} technique={imgInfo.TECHNIQUE} type={imgInfo.TYPE}
         form={imgInfo.FORM} school={imgInfo.SCHOOL} location={imgInfo.LOCATION} description={imgInfo.DESCRIPTION}/>
       );
@@ -52,9 +60,7 @@ export default class DisplayPopular extends React.Component {
       // Print the error if there is one.
       console.log(err);
     });
-
   }
-
 
   toggleLike(){
     var icon = this.state.likeState ? <FontAwesomeIcon icon={['far', 'heart']} /> : <FontAwesomeIcon icon="heart" />;

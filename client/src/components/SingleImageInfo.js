@@ -7,6 +7,7 @@
  * @LastEditTime: 2020-05-04 19:15:52
  */
 import React from 'react';
+import {Link} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../style/SingleImage.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -66,17 +67,17 @@ export default class SingleImageInfo extends React.Component {
 
         <div className="info-section">
 
-          <div>TITLE: {this.props.title}</div>
+          <div>TITLE:{this.props.title} </div>
           <div>SIZE: {this.props.size}</div>
           <div>ARTIST: {this.props.artist}</div>
-          <div>CREATED AT: {this.props.date}</div>
+					<div>CREATED AT: <Link to={"/display/TIMELINE_START/"+this.props.start}>{this.props.date}</Link> </div>
           <div>TECHNIQUE: {this.props.technique}</div>
-          <div>TYPE: {this.props.type}</div>
-          <div>FORM: {this.props.form}</div>
-          <div>SCHOOL: {this.props.school}</div>
+					<div>TYPE: <Link to={"/display/TYPE/"+this.props.type}>{this.props.type}</Link> </div>
+					<div>FORM: <Link to={"/display/FORM/"+this.props.form}>{this.props.form}</Link> </div>
+					<div>SCHOOL: <Link to={"/display/SCHOOL/"+this.props.school}>{this.props.school}</Link></div>
           <div>NOW AT: {this.props.location}</div>
           <div>{this.props.description}</div>
-				<div><button onClick={this.toggleLike}>{this.state.likeIcon}</button></div>
+					<div><button onClick={this.toggleLike}>{this.state.likeIcon}</button></div>
 
         </div>
 
