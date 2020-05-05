@@ -128,7 +128,7 @@ export default class SideNavbar extends React.Component {
     }).then(menuList => {
       if (!menuList) return;
       let menuDiv = menuList.map((content, i) =>
-        <Link to={"/display/"+searchKey+"/"+content.value}> {content.value} </Link>
+        <Link className="content-text" to={"/display/"+searchKey+"/"+content.value}> {content.value} </Link>
       );
 
       this.setState({
@@ -176,23 +176,23 @@ export default class SideNavbar extends React.Component {
        <div id="sidebar-push" className="sidenav">
         <div className="side-menu">
           <div>
-            <Link>Artist</Link>
+            <Link className="menu-text">Artist</Link>
             <Button onClick={this.showArtisitAlpha}><FontAwesomeIcon icon="angle-double-right"/></Button>
           </div>
           <div>
-            <Link to={"/populars"}>Period</Link>
+            <Link className="menu-text" to={"/populars"}>Period</Link>
             <Button onClick={() => this.showMenuList("TIMELINE_START")}><FontAwesomeIcon icon="angle-double-right"/></Button>
           </div>
           <div>
-            <Link to={"/populars/FORM"}>Form</Link>
+            <Link  className="menu-text"to={"/populars/FORM"}>Form</Link>
             <Button onClick={() => this.showMenuList("FORM")}><FontAwesomeIcon icon="angle-double-right"/></Button>
           </div>
           <div>
-            <Link to={"/populars/TYPE"}>Type</Link>
+            <Link className="menu-text" to={"/populars/TYPE"}>Type</Link>
             <Button onClick={() => this.showMenuList("TYPE")}><FontAwesomeIcon icon="angle-double-right"/></Button>
           </div>
           <div>
-            <Link to={"/populars/SCHOOL"}>School</Link>
+            <Link className="menu-text" to={"/populars/SCHOOL"}>School</Link>
             <Button onClick={() => this.showMenuList("SCHOOL")}><FontAwesomeIcon icon="angle-double-right"/></Button>
           </div>
         </div>

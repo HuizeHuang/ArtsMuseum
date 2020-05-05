@@ -97,17 +97,35 @@ p{
   top:0;
   background-color: #a385bd;
   display: flex;
-  flex-wrap:wrap;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-#sidebar-push .side-menu div {
-  height: 30px;
-  margin-top: 50px;
+#sidebar-push .side-menu .menu-text{
+  width: 80px;
+  font-size: 1rem;
+  text-align: center;
+  color: #fff;
+  display: inline-block;
+  text-decoration: none;
+  /* font-weight: bold; */
+  transition: 0.3s;
 }
+
+#sidebar-push .side-menu .menu-text:hover {
+  color: #fce373 ;
+}
+
 
 #sidebar-push button {
   background-color: #a385bd;
   border: none;
+  display: inline-block;
+  transition: 0.3s;
+}
+
+#sidebar-push button:hover {
+  color: #fce373 ;
 }
 
 #sidebar-push .side-content {
@@ -120,8 +138,9 @@ p{
 }
 
 /* The navigation menu links */
-.sidenav a {
-  padding: 8px 8px 8px 32px;
+.sidenav .content-text {
+  text-align: center;
+  margin: 10px 0px;
   text-decoration: none;
   font-size: 20px;
   color: #818181;
@@ -130,8 +149,8 @@ p{
 }
 
 /* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
-  color: #f1f1f1;
+.sidenav .content-text:hover {
+  color: #fff;
 }
 
 
@@ -153,7 +172,7 @@ p{
 
 /* Top navbar */
 .TopNavbar {
-  height: 50px;
+  height: 65px;
   background-color: #fce373;
 }
 
@@ -211,7 +230,7 @@ p{
   position: relative;
   padding: 80px 0;
   overflow: hidden;
-  width:1104px;
+  /* width:1104px; */
   height: 450px;
 }
 
