@@ -1,21 +1,31 @@
 body {
-  background-color: #f9a04e;
+  background-color: #fce373;
 }
 
-
+.top {
+  background-color: #fce373;
+}
 /*------------- Intro Section ----------------*/
 .intro {
   background-color: #fce373;
   padding: 50px;
 }
 
+.search-key {
+  font-size: 4rem;
+}
+
+.search-value {
+  font-family: cursive;
+}
 
 /*------------- Image Display Section ----------------*/
 .images-grid {
   display: flex;
   flex-wrap: wrap;
   padding: 0 10px;
-  background-color: #f9a04e;
+  background-color: #f8b5b5 ;
+  padding-left: 50px;
 }
 
 /* Create four equal columns that sits next to each other */
@@ -25,7 +35,7 @@ body {
 }
 
 .img-container {
-  background-color: #9dcf91;
+  background-color: #f9a04e;
   padding: 15px;
   margin: 50px 15px;
 }
@@ -37,7 +47,7 @@ body {
 }
 
 .column img:hover{
-  opacity:0.4;
+  filter: blur(2px) brightness(60%);
 
 }
 

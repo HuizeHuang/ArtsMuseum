@@ -56,7 +56,7 @@ function getImages(req, res) {
   var key = req.params.key;
   var value = req.params.value;
   var query = `
-  SELECT ID, IMAGE_SOURCE
+  SELECT ID, IMAGE_SOURCE, TITLE
   FROM ARTWORK
   WHERE ${key} = '${value}'
   ORDER BY RAND()

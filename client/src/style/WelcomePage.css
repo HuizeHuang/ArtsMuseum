@@ -192,7 +192,10 @@ p{
 /* Top navbar */
 .TopNavbar {
   height: 65px;
-  background-color: #fce373;
+  background: #fce373;  /*#f8b5b5 ;*/
+}
+.top-nav-bar {
+  background: #fce373;
 }
 
 .TopNavbar .home {
@@ -205,7 +208,9 @@ p{
 
 .TopNavbar .link {
   color: #231f20;
+  font-family: 'Montserrat', sans-serif;
 }
+
 
 .TopNavbar .login {
   display: inline;
@@ -214,6 +219,9 @@ p{
   right:30px;
 }
 
+.TopNavbar .button {
+  margin: 0;
+}
 
 /* Header */
 .welcome-section {
@@ -237,9 +245,14 @@ p{
   text-align: center;
 }
 
-.welcome-btn {
+.icon-row {
+  padding: 20px;
+  text-align: center;
+}
+.welcome-icon {
   position:relative;
   top: 20px;
+  margin-left: 20px
 }
 
 
@@ -294,6 +307,14 @@ p{
 
 .newsletter label {
   margin: 20px;
+  display: inline-block;
+}
+
+.submit {
+  margin-top: 30px;
+  background-color: #fce373;
+  border: none;
+  border-radius: 10%;
 }
 
 

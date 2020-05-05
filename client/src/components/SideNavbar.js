@@ -34,59 +34,6 @@ export default class SideNavbar extends React.Component {
   // React function that is called when the page load.
   componentDidMount() {
 
-    // Get popular images
-    fetch("http://localhost:8081/userPopular",
-    {
-      method: 'GET' // The type of HTTP request.
-    }).then(res => {
-      // Convert the response data to a JSON.
-      return res.json();
-    }, err => {
-      // Print the error if there is one.
-      console.log(err);
-    }).then(imagesList => {
-      if (!imagesList) return;
-
-      // Map each UrlObj in UrlList to an HTML element:
-      let imgDiv = imagesList.map((imgObj, i) =>
-        <div className="side-img-container"><Link to={"/singleimage/"+ imgObj.artwork_id}><img key={i} src={imgObj.image_source} alt=""/></Link></div>
-      );
-      console.log(imgDiv);
-      // Set the state of the genres list to the value returned by the HTTP response from the server.
-      this.setState({
-        popularImages: imgDiv
-      });
-    }, err => {
-      // Print the error if there is one.
-      console.log(err);
-    });
-
-    // Get user's liked images
-    fetch("http://localhost:8081/userLiked/"+this.props.userID,
-    {
-      method: 'GET' // The type of HTTP request.
-    }).then(res => {
-      // Convert the response data to a JSON.
-      return res.json();
-    }, err => {
-      // Print the error if there is one.
-      console.log(err);
-    }).then(imagesList => {
-      if (!imagesList) return;
-
-      // Map each UrlObj in UrlList to an HTML element:
-      let imgDiv = imagesList.map((imgObj, i) =>
-        <div className="side-img-container"><Link to={"/singleimage/"+ imgObj.artwork_id}><img key={i} src={imgObj.image_source} alt=""/></Link></div>
-      );
-      console.log(imgDiv);
-      // Set the state of the genres list to the value returned by the HTTP response from the server.
-      this.setState({
-        likedImages: imgDiv
-      });
-    }, err => {
-      // Print the error if there is one.
-      console.log(err);
-    });
 
 
   }
@@ -122,6 +69,33 @@ export default class SideNavbar extends React.Component {
   }
 
   poppedSidebarLike() {
+    // Get user's liked images
+    fetch("http://localhost:8081/userLiked/"+this.props.userID,
+    {
+      method: 'GET' // The type of HTTP request.
+    }).then(res => {
+      // Convert the response data to a JSON.
+      return res.json();
+    }, err => {
+      // Print the error if there is one.
+      console.log(err);
+    }).then(imagesList => {
+      if (!imagesList) return;
+
+      // Map each UrlObj in UrlList to an HTML element:
+      let imgDiv = imagesList.map((imgObj, i) =>
+        <div className="side-img-container"><Link to={"/singleimage/"+ imgObj.artwork_id}><img key={i} src={imgObj.image_source} alt=""/></Link></div>
+      );
+      console.log(imgDiv);
+      // Set the state of the genres list to the value returned by the HTTP response from the server.
+      this.setState({
+        likedImages: imgDiv
+      });
+    }, err => {
+      // Print the error if there is one.
+      console.log(err);
+    });
+
     if (!this.state.poppedLikedDisplay) {
       if (
         document.getElementById("sidebar-pop-like")&&
@@ -150,6 +124,33 @@ export default class SideNavbar extends React.Component {
 
 
   poppedSidebarPopular() {
+    // Get popular images
+    fetch("http://localhost:8081/userPopular",
+    {
+      method: 'GET' // The type of HTTP request.
+    }).then(res => {
+      // Convert the response data to a JSON.
+      return res.json();
+    }, err => {
+      // Print the error if there is one.
+      console.log(err);
+    }).then(imagesList => {
+      if (!imagesList) return;
+
+      // Map each UrlObj in UrlList to an HTML element:
+      let imgDiv = imagesList.map((imgObj, i) =>
+        <div className="side-img-container"><Link to={"/singleimage/"+ imgObj.artwork_id}><img key={i} src={imgObj.image_source} alt=""/></Link></div>
+      );
+      console.log(imgDiv);
+      // Set the state of the genres list to the value returned by the HTTP response from the server.
+      this.setState({
+        popularImages: imgDiv
+      });
+    }, err => {
+      // Print the error if there is one.
+      console.log(err);
+    });
+
     if (!this.state.poppedPopularDisplay) {
       if (
         document.getElementById("sidebar-pop-popular")&&

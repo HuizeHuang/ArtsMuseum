@@ -1,5 +1,5 @@
 /*
- * @Description: 
+ * @Description:
  * @Version: 1.0
  * @Autor: Tianshi
  * @Date: 2020-05-04 18:49:17
@@ -22,19 +22,19 @@ export default class SingleImageInfo extends React.Component {
     }
     this.toggleLike = this.toggleLike.bind(this);
     this.checkStatus = this.checkStatus.bind(this);
-    
+
   }
 
   // React function that is called when the page load.
   componentDidMount() {
 
-    
+
     this.checkStatus();
 
   }
 
   toggleLike() {
-    
+
     if (this.props.loggedInStatus !== "LOGGED_IN") {
 
       alert("Please login before star an image")
@@ -47,14 +47,14 @@ export default class SingleImageInfo extends React.Component {
           if (response.data.status === true) {
             console.log("Unlike success")
             var icon = <FontAwesomeIcon icon={['far', 'heart']} />
-            
+
             this.setState({
               likeIcon: icon,
               likeState: false
             });
             this.props.history.push('/homepage');
             return
-            
+
           } else {
             alert("Failure to unstar");
           }
@@ -86,16 +86,16 @@ export default class SingleImageInfo extends React.Component {
 
         });
       }
-     
+
     }
 
   }
 
   checkStatus() {
-    
+
     if (this.props.loggedInStatus === "LOGGED_IN") {
-      
-      axios.post('http://localhost:8081/users/getStarStatus/', { userID: this.props.userID, imageID: this.props.imageID }) 
+
+      axios.post('http://localhost:8081/users/getStarStatus/', { userID: this.props.userID, imageID: this.props.imageID })
       .then(response => {
         console.log(response);
         if (response.data.status === true) {
@@ -133,15 +133,41 @@ export default class SingleImageInfo extends React.Component {
 
         <div className="info-section">
 
-          <div>TITLE:{this.props.title} </div>
-          <div>SIZE: {this.props.size}</div>
-          <div>ARTIST: {this.props.artist}</div>
-					<div>CREATED AT: <Link to={"/display/TIMELINE_START/"+this.props.start}>{this.props.date}</Link> </div>
-          <div>TECHNIQUE: {this.props.technique}</div>
-					<div>TYPE: <Link to={"/display/TYPE/"+this.props.type}>{this.props.type}</Link> </div>
-					<div>FORM: <Link to={"/display/FORM/"+this.props.form}>{this.props.form}</Link> </div>
-					<div>SCHOOL: <Link to={"/display/SCHOOL/"+this.props.school}>{this.props.school}</Link></div>
-          <div>NOW AT: {this.props.location}</div>
+          <div className="title">{this.props.title} </div>
+          <table >
+            <tr>
+              <td>SIZE</td>
+              <td>{this.props.size}</td>
+            </tr>
+            <tr>
+              <td>ARTIST</td>
+              <td>{this.props.artist}</td>
+            </tr>
+            <tr>
+              <td>CREATED AT</td>
+              <td><Link to={"/display/TIMELINE_START/"+this.props.start}>{this.props.date}</Link></td>
+            </tr>
+            <tr>
+              <td>TECHNIQUE</td>
+              <td>{this.props.technique}</td>
+            </tr>
+            <tr>
+              <td>TYPE</td>
+              <td><Link to={"/display/TYPE/"+this.props.type}>{this.props.type}</Link></td>
+            </tr>
+            <tr>
+              <td>FORM</td>
+              <td><Link to={"/display/FORM/"+this.props.form}>{this.props.form}</Link></td>
+            </tr>
+            <tr>
+              <td>SCHOOL</td>
+              <td><Link to={"/display/SCHOOL/"+this.props.school}>{this.props.school}</Link></td>
+            </tr>
+            <tr>
+              <td>NOW AT</td>
+              <td>{this.props.location}</td>
+            </tr>
+          </table>
           <div>{this.props.description}</div>
           <div><button onClick={this.toggleLike}>{this.state.likeIcon}</button></div>
 

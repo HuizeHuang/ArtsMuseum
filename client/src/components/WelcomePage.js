@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button'
 import SideNavbar from './SideNavbar';
 import TopNavbar from './TopNavbar';
 import Footer from './Footer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class WelcomePage extends React.Component {
   constructor(props) {
@@ -70,16 +71,21 @@ export default class WelcomePage extends React.Component {
 
         <div className="welcome-section">
 
-          <TopNavbar loggedInStatus={this.props.loggedInStatus} handleLogout={this.props.handleLogout}/>
+          <TopNavbar className="top-nav-bar" loggedInStatus={this.props.loggedInStatus} handleLogout={this.props.handleLogout}/>
 
           <Row className="welcome-row">
             <Col>
               <h1 className="big-heading" id="intro">WELCOME</h1>
             </Col>
           </Row>
-          <Button variant ="outline-dark" size= "lg" className="welcome-btn"><i className="fab fa-apple"></i> Search</Button>
-          <Button variant="outline-light" size="lg" className="welcome-btn"><i className="fab fa-google-play"></i> Explore</Button>
-
+          <div className="icon-row">
+          <FontAwesomeIcon className="welcome-icon" icon="male"/>
+          <FontAwesomeIcon className="welcome-icon" icon="male"/>
+          <FontAwesomeIcon className="welcome-icon" icon="palette"/>
+          <FontAwesomeIcon className="welcome-icon" icon="paint-brush"/>
+        <FontAwesomeIcon className="welcome-icon" icon="female"/>
+        <FontAwesomeIcon className="welcome-icon" icon="female"/>
+    </div>
         </div>
 
 

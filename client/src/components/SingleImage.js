@@ -17,7 +17,8 @@ export default class SingleImage extends React.Component {
     // This component maintains a list of randomly picked paintings
     this.state = {
       imageInfoDiv: "",
-      recImagesDiv: []
+      recImagesDiv: [],
+      style: {backgroundColor: '#f8b5b5'}
     }
 
     // Any instance method should be binded here
@@ -106,7 +107,7 @@ export default class SingleImage extends React.Component {
 
         <div id="main">
 
-          <TopNavbar loggedInStatus={this.props.loggedInStatus} handleLogout={this.props.handleLogout} />
+          <TopNavbar className="topBar" loggedInStatus={this.props.loggedInStatus} handleLogout={this.props.handleLogout} />
 
           {this.state.imageInfoDiv}
 

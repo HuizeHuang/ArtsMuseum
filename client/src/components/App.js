@@ -25,10 +25,10 @@ import axios from 'axios'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab, faHotjar, faGratipay, faTwitter, faFacebook, faInstagram} from '@fortawesome/free-brands-svg-icons'
 import { far, faUser, faHeart as farHeart} from '@fortawesome/free-regular-svg-icons'
-import { faSearch, faSpinner, faHeart as fasHeart, faEnvelope, faAngleDoubleRight} from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faSpinner, faHeart as fasHeart, faEnvelope, faAngleDoubleRight, faPalette, faPaintBrush, faFemale, faMale} from '@fortawesome/free-solid-svg-icons'
 
-library.add(fab, faSearch, faSpinner, faHotjar, faGratipay, far, fasHeart, farHeart, faUser,
-	faTwitter, faFacebook, faInstagram, faEnvelope, faAngleDoubleRight )
+library.add(fab, faSearch, faSpinner, faHotjar, faGratipay, far, fasHeart, farHeart, faUser, faPalette, faPaintBrush,
+	faTwitter, faFacebook, faInstagram, faEnvelope, faAngleDoubleRight, faFemale, faMale )
 
 
 export default class App extends React.Component {
@@ -72,14 +72,14 @@ export default class App extends React.Component {
 		this.setState({
 			loggedInStatus: "NOT_LOGGED_IN",
 			user: '',
-			
+
 		});
 
 
 	}
 
 	handleHistory(imageID) {
-		
+
 		this.setState(prevState => ({
 			historyImageIDs: [...prevState.historyImageIDs, imageID]
 		}))

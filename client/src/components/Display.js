@@ -100,14 +100,14 @@ export default class Display extends React.Component {
   render() {
 
     return (
-      <div className="wrapper">
+      <div>
 
         <SideNavbar userID={this.props.user} imageID={this.props.match.params.imageID} />
 
 
         <div id="main">
 
-          <TopNavbar loggedInStatus={this.props.loggedInStatus} handleLogout={this.props.handleLogout} />
+          <TopNavbar className="top" loggedInStatus={this.props.loggedInStatus} handleLogout={this.props.handleLogout} />
 
           <div className="intro">
 
