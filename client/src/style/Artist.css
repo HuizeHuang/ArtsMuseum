@@ -22,15 +22,17 @@ body {
 .column-4 {
   flex: 25%;
   padding: 0 4px;
+  overflow: hidden;
 }
 
 .img-wrap {
-  background-color: #f9a04e;
+  background-color: #fce373;
   margin: 10px 5px;
+  overflow: hidden;
 }
 
 .img-wrap .img-text {
-  height:20px;
+  /* height:20px; */
   background-color:#000;
   /* position: absolute;
   top:50%;
@@ -44,10 +46,10 @@ body {
 }
 
 .img-wrap img {
-  vertical-align: middle;
+  /* vertical-align: middle; */
   width: 100%;
   transition: .5s ease;
-  /* opacity: 0; */
+  opacity: 0;
 }
 
 

@@ -156,9 +156,23 @@ p{
 
 
 /* sidebar - pop */
+#sidebar-pop {
+  padding-top: 0;
+}
+.side-image-div {
+  overflow: hidden;
+  background-color: #a385bd;
+}
 
+.side-img-container {
+  width: 430px;
+  margin: 20px 10px 0;
+  padding: 0px 10px;
+}
 
-
+.side-img-container img {
+  width: 100%;
+}
 
 
 /* --------------------- Main Part -------------------------*/

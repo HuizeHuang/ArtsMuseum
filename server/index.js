@@ -56,7 +56,6 @@ app.get('/images/:key/:value', routes.getImages);
 
 
 
-
 /* ---- Get info for a image ---- */
 app.get('/image/:id', routes.getImgInfo);
 
@@ -72,6 +71,25 @@ app.get('/recs/:id', routes.getRecsForImg);
 
 /* ---- Get popular images in current genre ---- */
 app.get('/populars/:genre', routes.getPopularsByGenre);
+
+
+
+
+/* ---- See how three genres change along the time ---- */
+app.get('/timeline', routes.getTimelineChange);
+
+
+
+
+/* ---- Get popular images among users ---- */
+app.get('/userPopular', routes.getPopularByUsers);
+
+
+
+
+/* ---- Get users liked images ---- */
+app.get('/userLiked/:userID', routes.getLikedByUsers);
+
 
 
 

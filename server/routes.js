@@ -214,6 +214,95 @@ function getPopularsByGenre(req, res) {
 };
 
 
+/* ---- Get Timeline Changes ---- */
+function getTimelineChange(req, res) {
+  var query = `
+  SELECT * FROM
+	(SELECT
+	diff_time.timeline_start,
+	form,form_image_id,form_image_source,
+	type,type_image_id,type_image_source,
+	school,school_image_id,school_image_source
+	FROM
+		(SELECT DISTINCT timeline_start
+		FROM ARTWORK
+		ORDER BY RAND()
+		LIMIT 5
+		)diff_time
+		JOIN
+		(SELECT form, timeline_start,COUNT(*) AS cnt_form, id AS form_image_id, IMAGE_SOURCE AS form_image_source
+		FROM ARTWORK
+		GROUP BY form ,timeline_start
+		) most_common_form
+		ON diff_time.timeline_start = most_common_form.timeline_start
+		JOIN
+		(SELECT type ,timeline_start,COUNT(*) AS cnt_type, id AS type_image_id, IMAGE_SOURCE AS type_image_source
+		FROM ARTWORK
+		GROUP BY type ,timeline_start
+		) most_common_type
+		ON diff_time.timeline_start = most_common_type.timeline_start
+		JOIN
+		(SELECT DISTINCT school ,timeline_start,COUNT(*) AS cnt_school, id AS school_image_id, IMAGE_SOURCE AS school_image_source
+		FROM ARTWORK
+		GROUP BY school,timeline_start
+		) most_common_school
+		ON diff_time.timeline_start = most_common_school.timeline_start
+	ORDER BY diff_time.timeline_start ASC,cnt_form DESC, cnt_type DESC, cnt_school DESC) tab
+  GROUP BY timeline_start
+  `;
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      console.log(rows);
+      res.json(rows);
+    }
+  });
+};
+
+
+/* ---- Get popular images among users ---- */
+function getPopularByUsers(req, res) {
+  var query = `
+    SELECT artwork_id, image_source
+    FROM user_collections
+    JOIN ARTWORK
+    ON user_collections.artwork_id = ARTWORK.id
+    GROUP BY artwork_id
+    ORDER BY COUNT(*) DESC
+    LIMIT 10;
+  `;
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      console.log(rows);
+      res.json(rows);
+    }
+  });
+};
+
+
+/* ---- Get popular images among users ---- */
+function getLikedByUsers(req, res) {
+  var userId = req.params.userID;
+  var query = `
+    SELECT artwork_id, image_source
+    FROM user_collections
+    JOIN ARTWORK
+    ON user_collections.artwork_id = ARTWORK.id
+    WHERE user_collections.id = ${userId}
+    LIMIT 10;
+  `;
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      console.log(rows);
+      res.json(rows);
+    }
+  });
+};
+
+
+
 // The exported functions, which can be accessed in index.js.
 module.exports = {
   get10RandomPaintings: get10RandomPaintings,
@@ -222,8 +311,8 @@ module.exports = {
   getImgInfo: getImgInfo,
   getArtists:getArtists,
   getRecsForImg: getRecsForImg,
-  getPopularsByGenre:getPopularsByGenre
-  // getDecades: getDecades,
-  // bestGenresPerDecade: bestGenresPerDecade,
-  // getRandomMovies:getRandomMovies
+  getPopularsByGenre:getPopularsByGenre,
+  getTimelineChange:getTimelineChange,
+  getPopularByUsers: getPopularByUsers,
+  getLikedByUsers:getLikedByUsers
 }
