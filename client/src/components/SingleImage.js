@@ -48,7 +48,7 @@ export default class SingleImage extends React.Component {
     }).then(imageInfoArr => {
       if (!imageInfoArr) return;
       var imgInfo = imageInfoArr[0];
-      var imgInfoDiv = <SingleImageInfo source={imgInfo.IMAGE_SOURCE} title={imgInfo.TITLE} size={imgInfo.SIZES}
+      var imgInfoDiv = <SingleImageInfo source={imgInfo.IMAGE_SOURCE} title={imgInfo.TITLE} size={imgInfo.SIZES} start={imgInfo.TIMELINE_START}
         artist={imgInfo.AUTHOR} date={imgInfo.CREATED_TIME} technique={imgInfo.TECHNIQUE} type={imgInfo.TYPE}
         form={imgInfo.FORM} school={imgInfo.SCHOOL} location={imgInfo.LOCATION} description={imgInfo.DESCRIPTION}/>;
 
@@ -88,13 +88,6 @@ export default class SingleImage extends React.Component {
     });
   }
 
-  toggleLike(){
-    var icon = this.state.likeState ? <FontAwesomeIcon icon={['far', 'heart']} /> : <FontAwesomeIcon icon="heart" />;
-    this.setState ({
-      likeIcon: icon,
-      likeState: !this.state.likeState
-    });
-  }
 
   render() {
 

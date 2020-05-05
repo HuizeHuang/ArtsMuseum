@@ -70,7 +70,7 @@ app.get('/recs/:id', routes.getRecsForImg);
 
 
 /* ---- Get popular images in current genre ---- */
-app.get('/populars/:id', routes.getPopularsByGenre);
+app.get('/populars/:genre', routes.getPopularsByGenre);
 
 
 

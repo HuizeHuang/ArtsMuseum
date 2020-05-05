@@ -142,7 +142,34 @@ function getRecsForImg(req, res) {
 
 /* ---- Get popular images in current genre ---- */
 function getPopularsByGenre(req, res) {
-  var genre = req.params.id;
+  var genre = req.params.genre;
+
+  var form = `
+    TYPE,
+    latest_artwork.${genre},
+    SCHOOL,
+  `;
+  var type = `
+    FORM,
+    latest_artwork.${genre},
+    SCHOOL,
+  `;
+  var school = `
+    FORM,
+    latest_artwork.${genre},
+    TYPE,
+  `;
+  var switchG;
+  if (genre==="FORM") {
+    switchG = form;
+  }
+  else if (genre==="TYPE"){
+    switchG = type;
+  }
+  else if (genre==="SCHOOL"){
+    switchG = school;
+  }
+
   var query = `
   SELECT
 		TITLE,
@@ -150,12 +177,11 @@ function getPopularsByGenre(req, res) {
     FULL_NAME,
     CREATED_TIME,
     TECHNIQUE,
-    TYPE,
-    latest_artwork.${genre},
     LOCATION,
     DESCRIPTION,
-    SCHOOL,
-    IMAGE_SOURCE
+    IMAGE_SOURCE,`
+    + switchG + `
+    TIMELINE_START
 		FROM
 			(SELECT ${genre},
 			MAX(timeline_start) AS latest_timeline

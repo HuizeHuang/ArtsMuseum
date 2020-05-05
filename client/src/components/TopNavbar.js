@@ -34,7 +34,7 @@ export default class TopNavbar extends React.Component {
 		return (
       <div className="TopNavbar">
        <div className="home">
-				 <Link className="link" to="/">HUWANG Art Gallery </Link>
+				 <Link className="link" to="/WelcomePage">HUWANG Art Gallery </Link>
        </div>
        <div className="login">
          <Link className="link" to="/login"><FontAwesomeIcon icon={['far', 'user']}/> </Link>
