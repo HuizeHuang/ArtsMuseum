@@ -63,7 +63,7 @@ export default class SingleImage extends React.Component {
       console.log(err);
     });
 
-    fetch("http://localhost:8081/populars/"+this.props.match.params.imageID,
+    fetch("http://localhost:8081/recs/"+this.props.match.params.imageID,
     {
       method: 'GET' // The type of HTTP request.
     }).then(res => {
@@ -76,7 +76,7 @@ export default class SingleImage extends React.Component {
       if (!imageList) return;
 
       let recImages = imageList.map((imgObj, i) =>
-      <div className="rec-img-container"><Link to={"/singleimage/" + imgObj.ID}><img key={i} src={imgObj.image_source} alt=""/></Link></div>
+      <div className="rec-img-container"><Link to={"/singleimage/" + imgObj.ID}><img key={i} src={imgObj.IMAGE_SOURCE} alt=""/></Link></div>
       );
       console.log(recImages);
 

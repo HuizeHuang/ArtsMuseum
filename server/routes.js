@@ -117,26 +117,26 @@ function getArtists(req, res) {
 
 
 /* ---- Get recommendations for current image ---- */
-function getRecsForImg(req, res) {
-  var query = `
-  SELECT A.id AS ID, image_source
-  FROM ARTWORK A,
-  (SELECT Form, Type, Timeline_Start, Timeline_End
-  FROM ARTWORK
-  WHERE ID = 2) T
-  WHERE A.Form = T.Form
-  AND A.Type = T.Type
-  ORDER BY ABS(A.Timeline_Start - T.Timeline_Start)
-  LIMIT 5;
-  `;
-  connection.query(query, function(err, rows, fields) {
-    if (err) console.log(err);
-    else {
-      console.log(rows);
-      res.json(rows);
-    }
-  });
-};
+// function getRecsForImg(req, res) {
+//   var query = `
+//   SELECT A.id AS ID, image_source
+//   FROM ARTWORK A,
+//   (SELECT Form, Type, Timeline_Start, Timeline_End
+//   FROM ARTWORK
+//   WHERE ID = 2) T
+//   WHERE A.Form = T.Form
+//   AND A.Type = T.Type
+//   ORDER BY ABS(A.Timeline_Start - T.Timeline_Start)
+//   LIMIT 5;
+//   `;
+//   connection.query(query, function(err, rows, fields) {
+//     if (err) console.log(err);
+//     else {
+//       console.log(rows);
+//       res.json(rows);
+//     }
+//   });
+// };
 
 
 
@@ -301,6 +301,202 @@ function getLikedByUsers(req, res) {
   });
 };
 
+
+recommend_ls=[]; // to store the list
+
+var len  = function(obj){
+    var len=0;
+    for(var i in obj){
+        len++
+    }
+    return len;
+}
+
+var cosine_similarity = function (a1, a2) {
+
+    var item_tab = {};
+    for (key in a1) {
+        if (key in a2 && key !="ID" && key!="Title"&& key!="ID"&& key!="IMAGE_SOURCE") {
+            item_tab[key] = 1
+        }
+    }
+
+    if (len(item_tab) == 0) return 0;
+    var a1_val = 0,
+        a2_val = 0,
+        a1_denom = 0,
+        a2_denom = 0,
+        numerator = 0;
+
+    for (var item in item_tab) {
+        a1_val = a1[item]
+        a2_val = a2[item]
+        a1_denom += Math.pow(a1[item], 2);
+        a2_denom += Math.pow(a2[item], 2);
+        numerator += a1_val * a2_val;
+    }
+
+    var denominator = Math.sqrt(a1_denom)*Math.sqrt(a2_denom);
+
+    if (denominator == 0) return 0;
+    else return numerator / denominator;
+
+}
+
+var pearson_coefficient = function (a1, a2) {
+    var item_tab = {};
+
+    for (key in a1) {
+
+        if (key in a2 && key!="Title" && key!="ID"&& key!="IMAGE_SOURCE") {
+            item_tab[key] = 1
+        }
+    }
+
+    var num_item = len(item_tab);
+
+    if (num_item == 0) return 0;
+
+    var a1_sum = 0,
+        a2_sum = 0,
+        a1_sq_sum = 0,
+        a2_sq_sum = 0,
+        product = 0;
+// calculate product and sum
+    for (var item in item_tab) {
+
+        a1_sum += a1[item];
+        a2_sum += a2[item];
+        a1_sq_sum += Math.pow(a1[item], 2);
+        a2_sq_sum += Math.pow(a2[item], 2);
+        product += a1[item] * a2[item];
+
+    }
+
+    var numerator = product - (a1_sum * a2_sum / num_item);
+
+
+    var st1 = a1_sq_sum - Math.pow(a1_sum, 2) / num_item;
+
+    var st2 = a2_sq_sum - Math.pow(a2_sum, 2) / num_item;
+
+    var denominator = Math.sqrt(st1 * st2);
+
+    if (denominator == 0) return 0;
+    else {
+        var val = numerator / denominator;
+
+        return val;
+    }
+
+}
+
+
+var content_recommendation_engine= function(person,other,distance1,distance2,num){
+
+    var dist1=distance1(person,other)
+    var dist2 =distance2(person,other)
+    var val1 =dist1*dist2
+
+    var p = other
+
+    for(var i in recommend_ls){
+
+    if (p.Title ==recommend_ls[i].p.Title){
+    return recommend_ls;}
+
+    }
+
+    var cnt=0;
+    if (len(recommend_ls)<num) {
+     recommend_ls.push({val:val1,p:p});
+        return recommend_ls;
+    }
+
+    if (dist1<0) return recommend_ls
+
+    for(var ind in recommend_ls){
+
+        if(recommend_ls[ind].val<val1) {
+
+            recommend_ls.splice(cnt,1,{val:val1, p:p});
+            break;
+
+    }
+    cnt+=1;
+    }
+
+return recommend_ls
+}
+
+/* The entry function is here*/
+
+function getRecsForImg(req, res) {
+    var imgId = req.params.id;
+    var query = `(
+        SELECT REC.Title,REC.Technique,REC.Form, REC.Type,\
+         REC.School,REC.ID, ARTWORK.IMAGE_SOURCE
+        FROM REC, ARTWORK
+        WHERE REC.ID = ${imgId} AND ARTWORK.ID=REC.ID
+        LIMIT 1
+    )UNION(
+        SELECT REC.Title,REC.Technique,REC.Form, REC.Type,\
+         REC.School,REC.ID, ARTWORK.IMAGE_SOURCE
+        FROM REC, user_collections, ARTWORK
+        WHERE user_collections.artwork_id=ARTWORK.ID AND REC.ID=ARTWORK.ID\
+        AND user_collections.id IN(
+            SELECT user_collections.id
+            FROM user_collections, ARTWORK
+            WHERE ARTWORK.ID=${imgId} AND user_collections.artwork_id=ARTWORK.ID)
+            AND REC.ID != ${imgId}
+            LIMIT 1000
+    )UNION(
+        SELECT REC.Title,REC.Technique,REC.Form, REC.Type,\
+         REC.School,REC.ID, ARTWORK.IMAGE_SOURCE
+        FROM REC, ARTWORK
+        WHERE REC.Author_ID IN(
+        SELECT REC.Author_ID
+        FROM REC
+        WHERE REC.ID= ${imgId}
+    ) AND REC.ID=ARTWORK.ID AND REC.ID != ${imgId}
+    ORDER BY RAND()
+    LIMIT 0,3000) UNION(
+        SELECT REC.Title,REC.Technique,REC.Form, REC.Type,\
+        REC.School,REC.ID, ARTWORK.IMAGE_SOURCE
+        FROM REC, ARTWORK
+        WHERE ARTWORK.Type IN(
+        SELECT ARTWORK.Type
+        FROM REC
+        WHERE REC.ID= ${imgId} AND ARTWORK.ID=REC.ID
+    ) AND REC.ID=ARTWORK.ID AND REC.ID != ${imgId}
+    ORDER BY RAND()
+    LIMIT 0,1000
+    );`;
+
+    connection.query(query, function (err, rows, fields) {
+        if (err) console.log(err);
+        else {
+            var num=5 // number of recommnedation
+            var m
+            for( var i =1; i<len(rows);i++){
+            y= content_recommendation_engine(rows[0],rows[i],pearson_coefficient,cosine_similarity,num)
+            }
+            var ret_recommend=[]
+            for(var i in recommend_ls){
+                delete recommend_ls[i].val
+                delete recommend_ls[i].p.Title
+                delete recommend_ls[i].p.Technique
+                delete recommend_ls[i].p.Form
+                delete recommend_ls[i].p.Type
+                delete recommend_ls[i].p.School
+                ret_recommend.push(recommend_ls[i].p)
+            }
+            console.log(ret_recommend) // Final return value
+            res.json(ret_recommend);
+        }
+    });
+
+}
 
 
 // The exported functions, which can be accessed in index.js.
