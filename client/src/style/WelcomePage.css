@@ -156,9 +156,14 @@ p{
 
 
 /* sidebar - pop */
-#sidebar-pop {
+#sidebar-pop-like {
   padding-top: 0;
 }
+
+#sidebar-pop-popular {
+  padding-top: 0;
+}
+
 .side-image-div {
   overflow: hidden;
   background-color: #a385bd;

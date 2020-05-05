@@ -1,5 +1,5 @@
 /*
- * @Description: 
+ * @Description:
  * @Version: 1.0
  * @Autor: Tianshi
  * @Date: 2020-05-04 03:49:53
@@ -12,13 +12,13 @@ import {
 } from 'reactstrap';
 import SignUp from './Auth/Signup'
 import Login from './Auth/Login'
-import './Home.css'
+import "../style/Home.css"
 
 export default class Home extends Component {
 
     constructor(props) {
         super(props);
-    
+
         this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
         // this.handleLogoutClick = this.handleLogoutClick.bind(this);
     }
@@ -35,19 +35,19 @@ export default class Home extends Component {
                     <p className="text-white">
                         HWANG ART GALLERY HOME
                     </p>
-                    
+
                 </h2>
 
                 <Login handleSuccessfulAuth = {this.handleSuccessfulAuth}/>
                 <SignUp handleSuccessfulAuth = {this.handleSuccessfulAuth}/>
-                
+
             </div>
 
-            
 
-            </Container>  
-                
-           
+
+            </Container>
+
+
         );
     }
 }
