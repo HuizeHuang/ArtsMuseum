@@ -4,7 +4,7 @@
  * @Autor: Tianshi
  * @Date: 2020-05-04 08:42:41
  * @LastEditors: Tianshi
- * @LastEditTime: 2020-05-05 02:13:14
+ * @LastEditTime: 2020-05-05 03:03:34
  */
 import React from 'react';
 import {
@@ -58,17 +58,23 @@ export default class App extends React.Component {
 
 	handleLogout() {
 
-		this.setState({
-		  loggedInStatus: "NOT_LOGGED_IN"
-		});
+
 
         axios.post('http://localhost:8081/users/history/', {historyImageIDs : this.state.historyImageIDs})
         .then(response => {
             console.log(response);
-            
+			this.setState({
+				historyImageIDs: []
+			});
         }).catch(error => {
 
-        });
+		});
+		this.setState({
+			loggedInStatus: "NOT_LOGGED_IN",
+			user: '',
+			
+		});
+
 
 	}
 
