@@ -4,7 +4,7 @@
  * @Autor: Tianshi
  * @Date: 2020-05-03 04:12:36
  * @LastEditors: Tianshi
- * @LastEditTime: 2020-05-04 20:14:46
+ * @LastEditTime: 2020-05-05 02:01:17
  */
 
 var express = require('express');
@@ -18,4 +18,5 @@ router.post('/signup/', userController.signup);
 router.post('/collect/', userController.collect);
 router.post('/getStarStatus/', userController.getStarStatus);
 router.post('/unlike/', userController.unlike);
+router.post('/history/', userController.history);
 module.exports = router;

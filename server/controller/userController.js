@@ -4,7 +4,7 @@
  * @Autor: Tianshi
  * @Date: 2020-05-03 04:13:29
  * @LastEditors: Tianshi
- * @LastEditTime: 2020-05-04 20:06:41
+ * @LastEditTime: 2020-05-05 02:04:14
  */
 
 var config = require('../db-config.js');
@@ -19,6 +19,7 @@ exports.signup = signup;
 exports.collect = collect;
 exports.getStarStatus = getStarStatus;
 exports.unlike = unlike;
+exports.history = history;
 /**
  * 
  * Login
@@ -196,4 +197,35 @@ function unlike(req, res, next) {
 
         }
     });
+}
+
+/**
+ * 
+ * history
+ * 
+ * @param {_} req 
+ * @param {_} res 
+ * @param {_} next 
+ * 
+ * @return 
+ */
+function history(req, res, next) {
+    var userIDs = req.body.historyImageIDs;
+    console.log(userIDs)
+
+    // var query = `DELETE FROM user_collections WHERE id = '${userID}' AND artwork_id = '${imageID}';`;
+
+    // connection.query(query, function (err, rows, fields) {
+    //     if (err) {
+    //         console.log(err);
+    //         throw err;
+    //     }
+    //     else { 
+            
+    //         res.send(commonJS.createJsonString(true, null, "Deleted star"))
+            
+            
+
+    //     }
+    // });
 }

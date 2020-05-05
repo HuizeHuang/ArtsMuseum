@@ -1,3 +1,11 @@
+/*
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Tianshi
+ * @Date: 2020-05-05 00:30:50
+ * @LastEditors: Tianshi
+ * @LastEditTime: 2020-05-05 02:08:36
+ */
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../style/SingleImage.css";
@@ -81,7 +89,7 @@ export default class DisplayPopular extends React.Component {
 
       <div id="main">
 
-        <TopNavbar/>
+      <TopNavbar loggedInStatus={this.props.loggedInStatus} handleLogout={this.props.handleLogout}/>
 
         {this.state.imageDivs}
 

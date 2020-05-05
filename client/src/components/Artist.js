@@ -107,7 +107,7 @@ export default class Artist extends React.Component {
 
       <div id="main">
 
-        <TopNavbar />
+        <TopNavbar loggedInStatus={this.props.loggedInStatus} handleLogout={this.props.handleLogout}/>
 
         <div className="intro">
 
