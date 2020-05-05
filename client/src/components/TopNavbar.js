@@ -4,13 +4,13 @@
  * @Autor: Tianshi
  * @Date: 2020-05-04 18:49:17
  * @LastEditors: Tianshi
- * @LastEditTime: 2020-05-05 00:51:57
+ * @LastEditTime: 2020-05-05 01:29:26
  */
 import React from "react";
 import { Button } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../style/WelcomePage.css";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class TopNavbar extends React.Component {
@@ -18,7 +18,7 @@ export default class TopNavbar extends React.Component {
 		super(props);
 
 		this.state = {
-
+			pushToSignupPage: false
 		}
 	}
 
@@ -39,6 +39,21 @@ export default class TopNavbar extends React.Component {
 		// });
 	}
 
+
+	setRedirectToSign = () => {
+		this.setState({
+			pushToSignupPage: true
+		})
+	}
+
+	renderRedirectToSign = () => {
+		if (this.state.pushToSignupPage) {
+			return <Redirect to='/' />
+		}
+	}
+
+
+
 	render() {
 		if (this.props.loggedInStatus === 'LOGGED_IN') {
 			return (
@@ -49,8 +64,8 @@ export default class TopNavbar extends React.Component {
 					<div className="login">
 						<Button className="button"
 							onClick={this.props.handleLogout}>
-							logout
-							</Button>
+							Logout
+						</Button>
 					</div>
 				</div>
 			);
@@ -59,6 +74,13 @@ export default class TopNavbar extends React.Component {
 			<div className="TopNavbar">
 				<div className="home">
 					<Link className="link" to="/welcomepage">HUWANG Art Gallery </Link>
+				</div>
+				<div className="login">
+					<Button className="button"
+						onClick={this.setRedirectToSign}>
+						Login / Signup
+					</Button>
+					{this.renderRedirectToSign()}
 				</div>
 			</div>
 		);
