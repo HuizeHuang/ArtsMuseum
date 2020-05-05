@@ -4,7 +4,7 @@
  * @Autor: Tianshi
  * @Date: 2020-05-03 04:13:29
  * @LastEditors: Tianshi
- * @LastEditTime: 2020-05-04 19:18:49
+ * @LastEditTime: 2020-05-04 20:06:41
  */
 
 var config = require('../db-config.js');
@@ -17,7 +17,8 @@ const commonJS = require('../utils/common.js');
 exports.login = login;
 exports.signup = signup;
 exports.collect = collect;
-
+exports.getStarStatus = getStarStatus;
+exports.unlike = unlike;
 /**
  * 
  * Login
@@ -124,10 +125,75 @@ function collect(req, res, next) {
     console.log(imageID)
     connection.query(sql, [values], function (err, result) {
         if (err){
-            throw err;
             res.send(commonJS.createJsonString(false, null, "Insert failure"))
+            throw err;
+            
         } else {
             res.send(commonJS.createJsonString(true, result, "Insert success"))
+        }
+    });
+}
+
+/**
+ * 
+ * get star status with user id
+ * 
+ * @param {_} req 
+ * @param {_} res 
+ * @param {_} next 
+ * 
+ * @return 
+ */
+function getStarStatus(req, res, next) {
+    var userID = req.body.userID;
+    var imageID = req.body.imageID;
+
+    var query = `SELECT * FROM user_collections WHERE id = '${userID}' AND artwork_id = '${imageID}' ;`;
+
+    connection.query(query, function (err, rows, fields) {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+        else { 
+            if (rows[0] == null) {
+                res.send(commonJS.createJsonString(false, null, "Haven't starred yet"))
+            } else {
+                res.send(commonJS.createJsonString(true, rows, "Already starred"))
+            }
+            
+
+        }
+    });
+}
+
+/**
+ * 
+ * get star status with user id
+ * 
+ * @param {_} req 
+ * @param {_} res 
+ * @param {_} next 
+ * 
+ * @return 
+ */
+function unlike(req, res, next) {
+    var userID = req.body.userID;
+    var imageID = req.body.imageID;
+
+    var query = `DELETE FROM user_collections WHERE id = '${userID}' AND artwork_id = '${imageID}';`;
+
+    connection.query(query, function (err, rows, fields) {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+        else { 
+            
+            res.send(commonJS.createJsonString(true, null, "Deleted star"))
+            
+            
+
         }
     });
 }

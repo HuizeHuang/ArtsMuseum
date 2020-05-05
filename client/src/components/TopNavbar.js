@@ -1,3 +1,11 @@
+/*
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Tianshi
+ * @Date: 2020-05-04 18:49:17
+ * @LastEditors: Tianshi
+ * @LastEditTime: 2020-05-04 19:44:57
+ */
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../style/WelcomePage.css";
@@ -34,7 +42,7 @@ export default class TopNavbar extends React.Component {
 		return (
       <div className="TopNavbar">
        <div className="home">
-				 <Link className="link" to="/">HUWANG Art Gallery </Link>
+				 <Link className="link" to="/welcomepage">HUWANG Art Gallery </Link>
        </div>
        <div className="login">
          <Link className="link" to="/login"><FontAwesomeIcon icon={['far', 'user']}/> </Link>
