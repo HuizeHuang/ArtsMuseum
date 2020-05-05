@@ -154,7 +154,7 @@ export default class SideNavbar extends React.Component {
       console.log(err);
     });
 
-    // if (!this.state.poppedPopularDisplay) {
+    if (!this.state.poppedPopularDisplay) {
       if (
         document.getElementById("sidebar-pop-popular")&&
         document.getElementById("main")
@@ -163,21 +163,21 @@ export default class SideNavbar extends React.Component {
         document.getElementById("main").style.filter = "brightness(50%)";
         document.getElementById("main").style.transition = "0.5s";
       }
-    // }
-    // else {
-    //   /* Set the width of the side navigation to 0 */
-    //   if (
-    //     document.getElementById("sidebar-pop-popular")&&
-    //     document.getElementById("main")
-    //   ) {
-    //     document.getElementById("sidebar-pop-popular").style.width = "0";
-    //     document.getElementById("main").style.filter = "brightness(100%)";
-    //     document.getElementById("main").style.transition = "0.5s";
-    //   }
-    // }
+    }
+    else {
+      /* Set the width of the side navigation to 0 */
+      if (
+        document.getElementById("sidebar-pop-popular")&&
+        document.getElementById("main")
+      ) {
+        document.getElementById("sidebar-pop-popular").style.width = "0";
+        document.getElementById("main").style.filter = "brightness(100%)";
+        document.getElementById("main").style.transition = "0.5s";
+      }
+    }
 
     // last convert the state
-    // this.setState({poppedPopularDisplay: !this.state.poppedPopularDisplay});
+    this.setState({poppedPopularDisplay: !this.state.poppedPopularDisplay});
   }
 
 

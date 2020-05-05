@@ -457,13 +457,13 @@ function getRecsForImg(req, res) {
         SELECT REC.Title,REC.Technique,REC.Form, REC.Type,\
          REC.School,REC.ID, ARTWORK.IMAGE_SOURCE
         FROM REC, ARTWORK
-        WHERE REC.Author_ID IN(
-        SELECT REC.Author_ID
+        WHERE REC.Type IN(
+        SELECT REC.Type
         FROM REC
         WHERE REC.ID= ${imgId}
     ) AND REC.ID=ARTWORK.ID AND REC.ID != ${imgId}
     ORDER BY RAND()
-    LIMIT 3000);`;
+    LIMIT 1000);`;
 
     connection.query(query, function (err, rows, fields) {
       var main

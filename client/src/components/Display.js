@@ -89,7 +89,10 @@ export default class Display extends React.Component {
     }
     if (this.props.match.params.key === "TIMELINE_START") {
       this.setState({currentKey: "TIMELINE"});
-    }else {
+    }else if (this.props.match.params.key === "AUTHOR_ID") {
+      this.setState({currentKey: "AUTHOR"});
+    }
+    else {
       this.setState({currentKey: this.props.match.params.key});
     }
     // Set the state of the genres list to the value returned by the HTTP response from the server.
