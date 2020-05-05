@@ -145,11 +145,12 @@ p{
 
 
 #sidebar-push .side-content {
-  background-color: #231f20;
+  background-color: #111111;
   height:100%;
   width: 170px;   /* 250px in total for pushed sidebar*/
   position: absolute;
   top:0;
+  bottom:0;
 }
 
 
