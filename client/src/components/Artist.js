@@ -1,8 +1,9 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../style/Artist.css";
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import {Image} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
 import SideNavbar from './SideNavbar';
@@ -72,10 +73,13 @@ export default class Artist extends React.Component {
 
   createImageCols(artistList){
     // Map each UrlObj in UrlList to an HTML element:
+    var background = {backgroundSize : 'cover'};
+
     let artistsDiv = artistList.map((artistObj, i) =>
     <div className="img-wrap">
-      <Link to={"/display/AUTHOR_ID/" + artistObj.ID}><img key={i} src={artistObj.IMAGE_SOURCE} alt=""/></Link>
-      <div className="img-text">{artistObj.FULL_NAME}</div>
+      <div className="img-text"><h3>{artistObj.full_name}</h3></div>
+    <Row className="img-hover"><Link to={"/display/AUTHOR_ID/" + artistObj.ID}><Image style={background} responsive key={i} src={artistObj.IMAGE_SOURCE} alt=""></Image></Link></Row>
+
     </div>
     );
 

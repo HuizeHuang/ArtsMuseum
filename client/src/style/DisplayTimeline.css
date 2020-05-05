@@ -23,3 +23,8 @@
 .img-row img{
   width:100%;
 }
+
+
+.img-col :hover img{
+  filter: blur(2px) brightness(60%);
+}
