@@ -63,14 +63,14 @@ export default class WelcomePage extends React.Component {
     return (
     <div className="wrapper">
 
-      <SideNavbar />
+      <SideNavbar userID={this.props.user} imageID={this.props.match.params.imageID}/>
 
       <div id="main" className="WelcomPage">
 
 
         <div className="welcome-section">
 
-          <TopNavbar loggedInStatus={this.props.loggedInStatus} userID={this.props.user}/>
+          <TopNavbar/>
 
           <Row className="welcome-row">
             <Col>

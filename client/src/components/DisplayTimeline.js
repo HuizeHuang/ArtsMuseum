@@ -82,7 +82,7 @@ export default class DisplayTimeline extends React.Component {
     return (
     <div className="wrapper">
 
-      <SideNavbar />
+      <SideNavbar userID={this.props.user} imageID={this.props.match.params.imageID}/>
 
 
       <div id="main">

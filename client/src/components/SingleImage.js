@@ -96,7 +96,7 @@ export default class SingleImage extends React.Component {
     return (
     <div>
 
-      <SideNavbar />
+      <SideNavbar userID={this.props.user} imageID={this.props.match.params.imageID}/>
 
 
       <div id="main">
