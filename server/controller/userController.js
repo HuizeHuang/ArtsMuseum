@@ -4,7 +4,7 @@
  * @Autor: Tianshi
  * @Date: 2020-05-03 04:13:29
  * @LastEditors: Tianshi
- * @LastEditTime: 2020-05-04 05:02:11
+ * @LastEditTime: 2020-05-04 19:18:49
  */
 
 var config = require('../db-config.js');
@@ -16,6 +16,8 @@ const commonJS = require('../utils/common.js');
 
 exports.login = login;
 exports.signup = signup;
+exports.collect = collect;
+
 /**
  * 
  * Login
@@ -97,6 +99,35 @@ function signup(req, res, next) {
             }
 
 
+        }
+    });
+}
+/**
+ * 
+ * collect photo with user id
+ * 
+ * @param {_} req 
+ * @param {_} res 
+ * @param {_} next 
+ * 
+ * @return 
+ */
+function collect(req, res, next) {
+    var userID = req.body.userID;
+    var imageID = req.body.imageID;
+
+    var sql = "INSERT INTO user_collections (id, artwork_id) VALUES ?";
+    var values = [
+        [userID, imageID],
+    ];
+    console.log(userID)
+    console.log(imageID)
+    connection.query(sql, [values], function (err, result) {
+        if (err){
+            throw err;
+            res.send(commonJS.createJsonString(false, null, "Insert failure"))
+        } else {
+            res.send(commonJS.createJsonString(true, result, "Insert success"))
         }
     });
 }
