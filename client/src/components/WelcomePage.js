@@ -70,7 +70,7 @@ export default class WelcomePage extends React.Component {
 
         <div className="welcome-section">
 
-          <TopNavbar />
+          <TopNavbar loggedInStatus={this.props.loggedInStatus} userID={this.props.user}/>
 
           <Row className="welcome-row">
             <Col>

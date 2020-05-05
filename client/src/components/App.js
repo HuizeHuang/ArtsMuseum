@@ -18,6 +18,7 @@ import DisplayPopular from './DisplayPopular';
 import Home from './Home'
 import SingleImage from './SingleImage';
 import WelcomePage from './WelcomePage';
+import DisplayTimeline from './DisplayTimeline';
 
 
 /*** Font Awesome Icon **/
@@ -125,6 +126,16 @@ export default class App extends React.Component {
 							path={"/populars/:genre"}
 							render={(props) => (
 								<DisplayPopular
+									{...props}
+									user={this.state.user}
+									loggedInStatus={this.state.loggedInStatus}
+								/>
+							)}
+						/>
+						<Route
+							path={"/timeline"}
+							render={(props) => (
+								<DisplayTimeline
 									{...props}
 									user={this.state.user}
 									loggedInStatus={this.state.loggedInStatus}

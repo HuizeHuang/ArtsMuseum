@@ -47,7 +47,8 @@ export default class DisplayPopular extends React.Component {
       if (!imageInfoArr) return;
 
       let imageDivs = imageInfoArr.map((imgInfo, i) =>
-      <SingleImageInfo source={imgInfo.IMAGE_SOURCE} title={imgInfo.TITLE} size={imgInfo.SIZES} start={imgInfo.TIMELINE_START}
+      <SingleImageInfo loggedInStatus={this.props.loggedInStatus} userID={this.props.user} imageID={this.props.match.params.imageID}
+        source={imgInfo.IMAGE_SOURCE} title={imgInfo.TITLE} size={imgInfo.SIZES} start={imgInfo.TIMELINE_START}
         artist={imgInfo.AUTHOR} date={imgInfo.CREATED_TIME} technique={imgInfo.TECHNIQUE} type={imgInfo.TYPE}
         form={imgInfo.FORM} school={imgInfo.SCHOOL} location={imgInfo.LOCATION} description={imgInfo.DESCRIPTION}/>
       );
