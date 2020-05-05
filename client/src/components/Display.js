@@ -87,12 +87,15 @@ export default class Display extends React.Component {
     for (index = Math.floor(imagesDiv.length / 2); index < imagesDiv.length; index++) {
       imagesCol2.push(imagesDiv[index]);
     }
-
+    if (this.props.match.params.key === "TIMELINE_START") {
+      this.setState({currentKey: "TIMELINE"});
+    }else {
+      this.setState({currentKey: this.props.match.params.key});
+    }
     // Set the state of the genres list to the value returned by the HTTP response from the server.
     this.setState({
       imagesFirstColumn: imagesCol1,
       imagesSecondColumn: imagesCol2,
-      currentKey: this.props.match.params.key,
       currentValue: this.props.match.params.value
     });
   }

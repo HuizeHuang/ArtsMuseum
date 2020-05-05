@@ -4,7 +4,10 @@ body{
   font-family: 'Montserrat', sans-serif;
   text-align: center;
   background-color: #9dcf91;
-}
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  }
 
 h1, h2, h3, h4, h5, h6{
   font-family: 'Montserrat';
@@ -84,6 +87,18 @@ p{
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
+.sidenav-second {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 128px;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s;
+}
 /* sidebar - push */
 #sidebar-push {
   display: flex;
@@ -128,17 +143,18 @@ p{
   color: #fce373 ;
 }
 
+
 #sidebar-push .side-content {
   background-color: #231f20;
   height:100%;
   width: 170px;   /* 250px in total for pushed sidebar*/
   position: absolute;
   top:0;
-  left:80px;
 }
 
+
 /* The navigation menu links */
-.sidenav .content-text {
+.content-text {
   text-align: center;
   margin: 10px 0px;
   text-decoration: none;
@@ -149,7 +165,7 @@ p{
 }
 
 /* When you mouse over the navigation links, change their color */
-.sidenav .content-text:hover {
+.content-text:hover {
   color: #fff;
 }
 

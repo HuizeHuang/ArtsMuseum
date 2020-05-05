@@ -1,5 +1,8 @@
 body {
   background-color: #f9a04e;
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 

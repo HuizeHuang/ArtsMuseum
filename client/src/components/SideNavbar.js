@@ -15,6 +15,7 @@ export default class SideNavbar extends React.Component {
     // This component maintains a list of randomly picked paintings
     this.state = {
       pushedMenuDisplay: false,
+      pushedSecondDisplay: false,
       poppedLikedDisplay: false,
       poppedPopularDisplay: false,
       randPaintings:[],
@@ -45,21 +46,22 @@ export default class SideNavbar extends React.Component {
     if (!this.state.pushedMenuDisplay) {
       /* Set the width of the side navigation to 250px */
       if (
-        document.getElementById("sidebar-push") &&
+        document.getElementById("sidebar-first") &&
         document.getElementById("main")
       ) {
-        document.getElementById("sidebar-push").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "298px";
+        document.getElementById("sidebar-first").style.width = "80px";
+        document.getElementById("main").style.marginLeft = "128px";
       }
     }
     // else close it
     else {
       /* Set the width of the side navigation to 0 */
       if (
-        document.getElementById("sidebar-push") &&
+        document.getElementById("sidebar-first") &&
         document.getElementById("main")
       ) {
-        document.getElementById("sidebar-push").style.width = "0";
+        document.getElementById("sidebar-first").style.width = "0";
+        document.getElementById("sidebar-second").style.width = "0px";
         document.getElementById("main").style.marginLeft = "48px";
       }
     }
@@ -67,6 +69,7 @@ export default class SideNavbar extends React.Component {
     // last convert the state
     this.setState({pushedMenuDisplay: !this.state.pushedMenuDisplay});
   }
+
 
   poppedSidebarLike() {
     // Get user's liked images
@@ -151,7 +154,7 @@ export default class SideNavbar extends React.Component {
       console.log(err);
     });
 
-    if (!this.state.poppedPopularDisplay) {
+    // if (!this.state.poppedPopularDisplay) {
       if (
         document.getElementById("sidebar-pop-popular")&&
         document.getElementById("main")
@@ -160,25 +163,50 @@ export default class SideNavbar extends React.Component {
         document.getElementById("main").style.filter = "brightness(50%)";
         document.getElementById("main").style.transition = "0.5s";
       }
-    }
-    else {
-      /* Set the width of the side navigation to 0 */
-      if (
-        document.getElementById("sidebar-pop-popular")&&
-        document.getElementById("main")
-      ) {
-        document.getElementById("sidebar-pop-popular").style.width = "0";
-        document.getElementById("main").style.filter = "brightness(100%)";
-        document.getElementById("main").style.transition = "0.5s";
-      }
-    }
+    // }
+    // else {
+    //   /* Set the width of the side navigation to 0 */
+    //   if (
+    //     document.getElementById("sidebar-pop-popular")&&
+    //     document.getElementById("main")
+    //   ) {
+    //     document.getElementById("sidebar-pop-popular").style.width = "0";
+    //     document.getElementById("main").style.filter = "brightness(100%)";
+    //     document.getElementById("main").style.transition = "0.5s";
+    //   }
+    // }
 
     // last convert the state
-    this.setState({poppedPopularDisplay: !this.state.poppedPopularDisplay});
+    // this.setState({poppedPopularDisplay: !this.state.poppedPopularDisplay});
   }
 
 
   showMenuList(searchKey) {
+    // if (!this.state.pushedSecondDisplay) {
+      /* Set the width of the side navigation to 250px */
+      if (
+        document.getElementById("sidebar-second") &&
+        document.getElementById("main")
+      ) {
+        document.getElementById("sidebar-second").style.width = "170px";
+        document.getElementById("main").style.marginLeft = "298px";
+      }
+    // }
+    // else close it
+    // else {
+    //   /* Set the width of the side navigation to 0 */
+    //   if (
+    //     document.getElementById("sidebar-second") &&
+    //     document.getElementById("main")
+    //   ) {
+    //     document.getElementById("sidebar-second").style.width = "0px";
+    //     document.getElementById("main").style.marginLeft = "128px";
+    //   }
+    // }
+
+    // last convert the state
+    // this.setState({pushedSecondDisplay: !this.state.pushedSecondDisplay});
+
     fetch("http://localhost:8081/menu/"+searchKey,
     {
       method: 'GET' // The type of HTTP request.
@@ -202,6 +230,31 @@ export default class SideNavbar extends React.Component {
   }
 
   showArtisitAlpha(){
+    if (!this.state.pushedSecondDisplay) {
+      /* Set the width of the side navigation to 250px */
+      if (
+        document.getElementById("sidebar-second") &&
+        document.getElementById("main")
+      ) {
+        document.getElementById("sidebar-second").style.width = "170px";
+        document.getElementById("main").style.marginLeft = "298px";
+      }
+    }
+    // else close it
+    else {
+      /* Set the width of the side navigation to 0 */
+      if (
+        document.getElementById("sidebar-second") &&
+        document.getElementById("main")
+      ) {
+        document.getElementById("sidebar-second").style.width = "0px";
+        document.getElementById("main").style.marginLeft = "128px";
+      }
+    }
+
+    // last convert the state
+    this.setState({pushedSecondDisplay: !this.state.pushedSecondDisplay});
+
     var alphaList = [];
     var i = 'A'.charCodeAt(0), j = 'Z'.charCodeAt(0);
     for (; i <= j; ++i) {
@@ -233,8 +286,9 @@ export default class SideNavbar extends React.Component {
         </div>
 
 
-       <div id="sidebar-push" className="sidenav">
-        <div className="side-menu">
+       <div id="sidebar-push" >
+        <div id="sidebar-first" className="sidenav">
+          <div className="side-menu">
           <div>
             <Link className="menu-text">Artist</Link>
             <Button onClick={this.showArtisitAlpha}><FontAwesomeIcon icon="angle-double-right"/></Button>
@@ -255,13 +309,20 @@ export default class SideNavbar extends React.Component {
             <Link className="menu-text" to={"/populars/SCHOOL"}>School</Link>
             <Button onClick={() => this.showMenuList("SCHOOL")}><FontAwesomeIcon icon="angle-double-right"/></Button>
           </div>
+          </div>
         </div>
 
-        <ScrollArea speed={0.8} className="side-content">
-          {this.state.searchContent}
-        </ScrollArea>
+        <div id="sidebar-second" className="sidenav-second" >
+          <div className="side-content">
+            <ScrollArea speed={0.8}>
+              {this.state.searchContent}
+            </ScrollArea>
+          </div>
+
+        </div>
 
        </div>
+
 
        <div id="sidebar-pop-like" className="sidenav">
          <ScrollArea speed={0.8} className="side-image-div">

@@ -1,11 +1,3 @@
-/*
- * @Description:
- * @Version: 1.0
- * @Autor: Tianshi
- * @Date: 2020-05-04 08:42:41
- * @LastEditors: Tianshi
- * @LastEditTime: 2020-05-05 03:03:34
- */
 import React from 'react';
 import {
 	BrowserRouter as Router,
@@ -20,6 +12,9 @@ import SingleImage from './SingleImage';
 import WelcomePage from './WelcomePage';
 import DisplayTimeline from './DisplayTimeline';
 import axios from 'axios'
+
+ import AnimatedRouter from 'react-animated-router';
+ import 'react-animated-router/animate.css';
 
 /*** Font Awesome Icon **/
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -90,7 +85,7 @@ export default class App extends React.Component {
 		return (
 			<div className="App">
 				<Router>
-					<Switch>
+					<AnimatedRouter>
 						<Route
 						exact
 						path={"/"}
@@ -185,7 +180,7 @@ export default class App extends React.Component {
 								/>
 							)}
 						/>
-					</Switch>
+					</AnimatedRouter>
 				</Router>
 			</div>
 		);
