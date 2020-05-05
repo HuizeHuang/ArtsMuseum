@@ -25,7 +25,7 @@ export default class WelcomePage extends React.Component {
 
   // React function that is called when the page load.
   componentDidMount() {
-    
+
     this.sliding();
 
   }

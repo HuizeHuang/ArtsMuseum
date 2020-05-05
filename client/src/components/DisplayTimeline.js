@@ -55,15 +55,15 @@ export default class DisplayTimeline extends React.Component {
         <Col className=" align-self-center time-text"><h1>{imgObj.timeline_start}</h1></Col>
       </Row>
       <Row>
-        <Col>
+        <Col className="img-col">
           <Link to={"/singleimage/"+ imgObj.form_image_id}><img key={i} src={imgObj.form_image_source} alt=""/></Link>
           <div className="img-overlay-text">{imgObj.form}</div>
         </Col>
-        <Col>
+        <Col className="img-col">
           <Link to={"/singleimage/"+ imgObj.type_image_id}><img key={i} src={imgObj.type_image_source} alt=""/></Link>
           <div className="img-overlay-text">{imgObj.type}</div>
         </Col>
-        <Col>
+        <Col className="img-col">
           <Link to={"/singleimage/"+ imgObj.school_image_id}><img key={i} src={imgObj.school_image_source} alt=""/></Link>
           <div className="img-overlay-text">{imgObj.school}</div>
         </Col>
@@ -94,6 +94,11 @@ export default class DisplayTimeline extends React.Component {
         </div>
 
         <div className="img-row-container">
+          <Row>
+            <Col><h3>Form</h3></Col>
+          <Col><h3>Type</h3></Col>
+        <Col><h3>School</h3></Col>
+          </Row>
           {this.state.imageDivs}
         </div>
 

@@ -392,13 +392,15 @@ var pearson_coefficient = function (a1, a2) {
 }
 
 
-var content_recommendation_engine= function(person,other,distance1,distance2,num){
+var content_recommendation_engine= function(person,other,distance1,distance2,num,imgId){
 
     var dist1=distance1(person,other)
     var dist2 =distance2(person,other)
     var val1 =dist1*dist2
 
     var p = other
+    // console.log(imgId)
+    if (p.ID==imgId ) return recommend_ls;
 
     for(var i in recommend_ls){
 
@@ -432,6 +434,7 @@ return recommend_ls
 /* The entry function is here*/
 
 function getRecsForImg(req, res) {
+  recommend_ls=[]
     var imgId = req.params.id;
     var query = `(
         SELECT REC.Title,REC.Technique,REC.Form, REC.Type,\
@@ -460,26 +463,21 @@ function getRecsForImg(req, res) {
         WHERE REC.ID= ${imgId}
     ) AND REC.ID=ARTWORK.ID AND REC.ID != ${imgId}
     ORDER BY RAND()
-    LIMIT 0,3000) UNION(
-        SELECT REC.Title,REC.Technique,REC.Form, REC.Type,\
-        REC.School,REC.ID, ARTWORK.IMAGE_SOURCE
-        FROM REC, ARTWORK
-        WHERE ARTWORK.Type IN(
-        SELECT ARTWORK.Type
-        FROM REC
-        WHERE REC.ID= ${imgId} AND ARTWORK.ID=REC.ID
-    ) AND REC.ID=ARTWORK.ID AND REC.ID != ${imgId}
-    ORDER BY RAND()
-    LIMIT 0,1000
-    );`;
+    LIMIT 3000);`;
 
     connection.query(query, function (err, rows, fields) {
+      var main
         if (err) console.log(err);
         else {
+
             var num=5 // number of recommnedation
-            var m
+
+            for(var k =1; k<len(rows);k++){
+             if (rows[k].Title==imgId) main=rows[k]
+            }
+
             for( var i =1; i<len(rows);i++){
-            y= content_recommendation_engine(rows[0],rows[i],pearson_coefficient,cosine_similarity,num)
+            y= content_recommendation_engine(main,rows[i],pearson_coefficient,cosine_similarity,num,imgId)
             }
             var ret_recommend=[]
             for(var i in recommend_ls){

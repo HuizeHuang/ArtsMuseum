@@ -1,5 +1,5 @@
 /*
- * @Description: 
+ * @Description:
  * @Version: 1.0
  * @Autor: Tianshi
  * @Date: 2020-05-04 18:49:17
@@ -62,7 +62,7 @@ export default class TopNavbar extends React.Component {
 						<Link className="link" to="/welcomepage">HUWANG Art Gallery </Link>
 					</div>
 					<div className="login">
-						<Button className="button"
+						<Button variant ="outline-dark" size= "sm" className="button"
 							onClick={this.props.handleLogout}>
 							Logout
 						</Button>
@@ -76,8 +76,7 @@ export default class TopNavbar extends React.Component {
 					<Link className="link" to="/welcomepage">HUWANG Art Gallery </Link>
 				</div>
 				<div className="login">
-					<Button className="button"
-						onClick={this.setRedirectToSign}>
+					<Button variant ="outline-dark" size= "sm" className="button" onClick={this.setRedirectToSign}>
 						Login / Signup
 					</Button>
 					{this.renderRedirectToSign()}

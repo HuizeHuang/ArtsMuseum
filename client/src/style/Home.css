@@ -1,3 +1,7 @@
+.body {
+  background-color: #f8b5b5 ;
+}
+
 .Home {
     text-align: left;
     padding: 1em;
@@ -9,29 +13,30 @@
     margin-right: auto;
     width: 800px;
     margin-top: 100px;
+    background-color: #a385bd  ;
   }
-  
+
   .form {
     padding: 1em;
   }
-  
+
   label {
     display: flex;
     font-weight: 600;
   }
-  
+
   button {
     justify-content: flex-end;
   }
-  
+
   .Home-title {
     font-size: 1.5em;
   }
-  
+
   .Home-intro {
     font-size: large;
   }
-  
+
   @keyframes Home-logo-spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
