@@ -48,8 +48,10 @@ export default class SingleImage extends React.Component {
     }).then(imageInfoArr => {
       if (!imageInfoArr) return;
       var imgInfo = imageInfoArr[0];
-      var imgInfoDiv = <SingleImageInfo source={imgInfo.IMAGE_SOURCE} title={imgInfo.TITLE} size={imgInfo.SIZES} start={imgInfo.TIMELINE_START}
-        artist={imgInfo.AUTHOR} date={imgInfo.CREATED_TIME} technique={imgInfo.TECHNIQUE} type={imgInfo.TYPE}
+
+
+      var imgInfoDiv = <SingleImageInfo loggedInStatus={this.props.loggedInStatus} userID={this.props.user} imageID={this.props.match.params.imageID} source={imgInfo.IMAGE_SOURCE} title={imgInfo.TITLE} size={imgInfo.SIZES}
+        artist={imgInfo.AUTHOR} date={imgInfo.CREATED_TIME} technique={imgInfo.TECHNIQUE} type={imgInfo.TYPE} start={imgInfo.TIMELINE_START}
         form={imgInfo.FORM} school={imgInfo.SCHOOL} location={imgInfo.LOCATION} description={imgInfo.DESCRIPTION}/>;
 
       this.setState({
