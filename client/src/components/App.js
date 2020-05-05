@@ -4,7 +4,7 @@
  * @Autor: Tianshi
  * @Date: 2020-05-04 08:42:41
  * @LastEditors: Tianshi
- * @LastEditTime: 2020-05-04 17:16:42
+ * @LastEditTime: 2020-05-05 00:40:33
  */
 import React from 'react';
 import {
@@ -42,7 +42,7 @@ export default class App extends React.Component {
 		};
 
 		this.handleLogin = this.handleLogin.bind(this);
-		// this.handleLogout = this.handleLogout.bind(this);
+		this.handleLogout = this.handleLogout.bind(this);
 	}
 
 	handleLogin(data) {
@@ -50,6 +50,14 @@ export default class App extends React.Component {
 		this.setState({
 		  loggedInStatus: "LOGGED_IN",
 		  user: data.value
+		});
+
+	}
+
+	handleLogout() {
+
+		this.setState({
+		  loggedInStatus: "NOT_LOGGED_IN"
 		});
 
 	}
@@ -79,7 +87,7 @@ export default class App extends React.Component {
 							<WelcomePage
 							{...props}
 							handleLogin={this.handleLogin}
-							// handleLogout={this.handleLogout}
+							handleLogout={this.handleLogout}
 							user={this.state.user}
 							loggedInStatus={this.state.loggedInStatus}
 							/>
